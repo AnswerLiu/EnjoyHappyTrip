@@ -20,11 +20,11 @@
 		<td>{$user.status}</td>
 		<!-- 非当前用户是不允许编辑其他用户资料 -->
 		{eq name="$user.id" value="$Think.session.admin_id"}
-		<td><a href="#">编辑</a></td>
+		<td><a href="{:url('user/userEdit',['id'=>$user.id])}">编辑</a></td>
+		<td><a href="{:url('user/userDel',['id'=>$user.id])}">删除</a></td>
 		{/eq}
-		{neq name="$user.id" value="$Think.session.admin_id"}
-		<td><a href="#">删除</a></td>
-		{/neq}
+		<!-- {neq name="$user.id" value="$Think.session.admin_id"} -->
+		<!-- {/neq} -->
 	</tr>
 	{/volist}
 </table>

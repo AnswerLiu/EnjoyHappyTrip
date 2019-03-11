@@ -57,6 +57,41 @@ class User extends Base
 		return $this->view->fetch('userList');
 	}
 
+	/**
+	 * 渲染用户编辑页面
+	 */
+	public function userEdit(){
+		// 获取当前要更新的用户的主键
+		$user_id = Request::param('id');
+		// 根据主键进行查询
+		$userInfo = UserModel::where('id',$user_id)->find();
+		// 设置编辑页面的模板变量
+		$this->view->assign('title','用户编辑');
+		$this->view->assign('userinfo',$userInfo);
+		// 渲染模板
+		return $this->view->fetch('useredit');
+	}
+
+	/**
+	 * 保存用户编辑
+	 */
+	public function doEdit(){
+		// 获取用户提交信息
+		$data = Request::param();
+		// 获取主键
+		$id = $data['id'];
+		// 用户密码加密再保存回去
+		$data['passwd'] = md5($data['passwd']);
+		// 删除主键id
+		unset($data['id']);
+		// 执行更新操作
+		if(UserModel::where('id',$id)->data($data)->update()){
+			return $this->success('更新成功','userList');
+		}else{
+			$this->error('没有更新或者更新失败');
+		}
+	}
+
 	/*退出登录*/
 	public function logout(){
 		// 清楚session
