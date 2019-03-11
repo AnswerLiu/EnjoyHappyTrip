@@ -1,0 +1,30 @@
+{layout name="public:layout" /}
+<h4 class="text-center text-success">用户列表</h4>
+<table class="table table-default table-hover text-center">
+	<tr>
+		<td>ID</td>
+		<td>用户名</td>
+		<td>邮箱</td>
+		<td>手机号</td>
+		<td>注册时间</td>
+		<td>状态</td>
+		<td colspan="2">操作</td>
+	</tr>
+	{volist name="userList" id="user" empty="$empty"}
+	<tr>
+		<td>{$user.id}</td>
+		<td>{$user.name}</td>
+		<td>{$user.email}</td>
+		<td>{$user.mobile}</td>
+		<td>{$user.create_time}</td>
+		<td>{$user.status}</td>
+		<!-- 非当前用户是不允许编辑其他用户资料 -->
+		{eq name="$user.id" value="$Think.session.admin_id"}
+		<td><a href="#">编辑</a></td>
+		{/eq}
+		{neq name="$user.id" value="$Think.session.admin_id"}
+		<td><a href="#">删除</a></td>
+		{/neq}
+	</tr>
+	{/volist}
+</table>

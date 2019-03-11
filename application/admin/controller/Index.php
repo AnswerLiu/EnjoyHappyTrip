@@ -8,7 +8,7 @@ class Index extends Base
     {
         // 用户是否登录
         $this -> isLogin();
-        return "你好，玉蝴蝶";
+        return $this->view->fetch();
     }
 
 }
