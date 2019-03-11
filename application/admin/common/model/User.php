@@ -5,5 +5,5 @@ use think\Model;
 class User extends Model
 {
 	protected $pk = 'id';
-	protected $table = 'eht_admin';
+	protected $table = 'yc_admin';
 }

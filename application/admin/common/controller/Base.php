@@ -18,7 +18,7 @@ class Base extends Controller
 	 * 1、调用位置：后台入口：admin.php/index/index()
 	 */
 	public function isLogin(){
-		if(!Session::has('id')){
+		if(!Session::has('admin_id')){
 			$this->error('请先登录','admin/user/login');
 		}
 	}
