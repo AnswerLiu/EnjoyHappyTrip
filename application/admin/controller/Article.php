@@ -33,6 +33,21 @@ class Article extends Base
 		return $this->view->fetch('articlelist');
 	}
 
+	/*渲染文章查看页面*/
+	public function articleInfo(){
+		// 获取文章的id
+		$id = Request::param('id');
+		// 根据主键查询文章信息
+		$articleInfo = ArticleModel::where('id',$id)->find();
+		// 获取文章分类信息
+		$cateList = Cate::all();
+		// 设置模板变量
+		$this->view->assign('title','查看文章');
+		$this->view->assign('articleInfo',$articleInfo);
+		$this->view->assign('cateList',$cateList);
+		return $this->view->fetch('articleinfo');
+	}
+
 	/*渲染编辑文章页面*/
 	public function articleEdit(){
 		// 获取文章的id
@@ -56,7 +71,7 @@ class Article extends Base
 		$data['upd_time'] = date('Y-m-d H:i:s',time());
 		// 获取上传的图片信息
 		$file = Request::file('title_img');
-		
+
 		// 图片信息验证与上传到服务器指定目录
 		$info = $file -> validate([
 			'size'=> 500000000000,  //文件大小
