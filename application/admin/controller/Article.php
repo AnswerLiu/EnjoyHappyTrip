@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use app\admin\common\controller\Base;
 use app\admin\common\model\Article as ArticleModel;
+use app\admin\common\model\Cate;
 use think\facade\Request;
 use think\facade\Session;
 
@@ -38,18 +39,35 @@ class Article extends Base
 		$id = Request::param('id');
 		// 根据主键查询更新的文章信息
 		$articleInfo = ArticleModel::where('id',$id)->find();
+		// 获取文章分类信息
+		$cateList = Cate::all();
 		// 设置模板变量
 		$this->view->assign('title','编辑文章');
 		$this->view->assign('articleInfo',$articleInfo);
+		$this->view->assign('cateList',$cateList);
 
 		return $this->view->fetch('articleedit');
 	}
 
-	/*执行更新操作*/
+	/*执行文章更新操作*/
 	public function doEdit(){
 		// 获取用户提交信息
 		$data = Request::param();
 		$data['upd_time'] = date('Y-m-d H:i:s',time());
+		// 获取上传的图片信息
+		$file = Request::file('title_img');
+		
+		// 图片信息验证与上传到服务器指定目录
+		$info = $file -> validate([
+			'size'=> 500000000000,  //文件大小
+			'ext'=>'jpeg,jpg,png,gif'  //文件扩展名
+		])->move('uploads/'); //移动到public/uploads目录下面
+		if($info){
+			$data['title_img'] = $info->getSaveName();
+		}else{
+			$this->error($file->getError());
+		}
+		
 		// 取出更新主键
 		$id = $data['id'];
 		// 删除主键id
@@ -62,7 +80,7 @@ class Article extends Base
 		}
 	}
 
-	/*执行删除操作*/
+	/*执行文章删除操作*/
 	public function doDelete(){
 		// 获取要删除的主键id
 		$id = Request::param('id');

@@ -10,16 +10,17 @@
 		<td>作者</td>
 		<td>阅读量(pv)</td>
 		<td>创建时间</td>
-		<td colspan="2">操作</td>
+		<td colspan="3">操作</td>
 	</tr>
 	{volist name="articleList" id="article" empty="$empty"}
 	<tr>
 		<td>{$article.id}</td>
-		<td class="text-left">{$article.title}</td>
+		<td class="text-left"><a href="{:url('article/articleInfo',['id'=>$article.id])}">{$article.title}</a></td>
 		<td>{$article.cate_id|getCateName}</td>
 		<td>{$article.author}</td>
 		<td>{$article.pv}</td>
 		<td>{$article.create_time}</td>
+		<td><a href="{:url('article/articleInfo',['id'=>$article.id])}">查看</a></td>
 		<td><a href="{:url('article/articleEdit',['id'=>$article.id])}">编辑</a></td>
 		<td><a href="#" onclick="dele();return false">删除</a></td>
 	</tr>

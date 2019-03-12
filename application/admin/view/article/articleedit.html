@@ -1,6 +1,6 @@
 {layout name="public:layout" /}
 <h4 class="text-center text-danger">编辑文章</h4>
-<form class="form-horizontal" method="post" action="{:url('article/doEdit')}">
+<form class="form-horizontal" method="post" action="{:url('article/doEdit')}" enctype="multipart/form-data">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">文章名称:</label>
     <div class="col-sm-10">
@@ -16,25 +16,24 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">文章栏目:</label>
     <div class="col-sm-10">
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {$articleInfo.cate_id|getCateName}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
-      </div>
+      <select class="form-control" name="cate_id">
+        {volist name="cateList" id="cate"}
+        <option value="{$cate.id}">{$cate.name}</option>
+        {/volist}
+      </select>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">文章内容:</label>
     <div class="col-sm-10">
-      <input type="text" name="content" class="form-control" id="inputPassword3" value="{$articleInfo.content}">
+      <textarea class="form-control" rows="3" name="content">{$articleInfo.content}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">文章缩略图:</label>
+    <div class="col-sm-10">
+      <img src="/uploads/{$articleInfo.title_img}" alt="文章缩略图" class="img-rounded img-responsive" width="150">
+      <input type="file" id="exampleInputFile" name="title_img" value="">
     </div>
   </div>
   <div class="form-group">
