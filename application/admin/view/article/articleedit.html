@@ -1,0 +1,69 @@
+{layout name="public:layout" /}
+<h4 class="text-center text-danger">编辑文章</h4>
+<form class="form-horizontal" method="post" action="{:url('article/doEdit')}">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">文章名称:</label>
+    <div class="col-sm-10">
+      <input type="text" name="title" class="form-control" id="inputEmail3" value="{$articleInfo.title}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">作者:</label>
+    <div class="col-sm-10">
+      <input type="text" name="author" class="form-control" id="inputPassword3" value="{$articleInfo.author}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">文章栏目:</label>
+    <div class="col-sm-10">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {$articleInfo.cate_id|getCateName}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">文章内容:</label>
+    <div class="col-sm-10">
+      <input type="text" name="content" class="form-control" id="inputPassword3" value="{$articleInfo.content}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">是否置顶:</label>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <input type="radio" name="is_top" value="1" {eq name="$articleInfo.is_top" value="1" } checked {/eq}> 置顶
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="is_top" value="0" {eq name="$articleInfo.is_top" value="0" } checked {/eq}> 不置顶
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">状态:</label>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <input type="radio" name="status" value="1" {eq name="$articleInfo.status" value="1" } checked {/eq}> 显示
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="status" value="0" {eq name="$articleInfo.status" value="0" } checked {/eq}> 隐藏
+      </label>
+    </div>
+  </div>
+  <!-- 隐藏id -->
+  <input type="hidden" name="id" value="{$articleInfo.id}">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default btn-info">保存</button>
+    </div>
+  </div>
+</form>

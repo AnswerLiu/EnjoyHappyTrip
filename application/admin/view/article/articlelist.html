@@ -1,0 +1,37 @@
+{layout name="public:layout" /}
+<h4 class="text-center text-success">文章列表</h4>
+<!-- 文章添加操作 -->
+<a class="btn btn-info" href="{:url('article/articleAdd')}" role="button">添加文章</a>
+<table class="table table-default table-hover text-center">
+	<tr>
+		<td>ID</td>
+		<td>名章标题</td>
+		<td>分类名称</td>
+		<td>作者</td>
+		<td>阅读量(pv)</td>
+		<td>创建时间</td>
+		<td colspan="2">操作</td>
+	</tr>
+	{volist name="articleList" id="article" empty="$empty"}
+	<tr>
+		<td>{$article.id}</td>
+		<td class="text-left">{$article.title}</td>
+		<td>{$article.cate_id|getCateName}</td>
+		<td>{$article.author}</td>
+		<td>{$article.pv}</td>
+		<td>{$article.create_time}</td>
+		<td><a href="{:url('article/articleEdit',['id'=>$article.id])}">编辑</a></td>
+		<td><a href="#" onclick="dele();return false">删除</a></td>
+	</tr>
+	{/volist}
+</table>
+
+<!-- 添加分页 -->
+<div class="text-center">{$articleList|raw}</div>
+<script>
+	function dele(){
+		if(confirm('您是确定要删除吗？') == true){
+			window.location.href = "{:url('article/doDelete',['id'=>$article.id])}";
+		}
+	}
+</script>
