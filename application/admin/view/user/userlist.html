@@ -21,10 +21,18 @@
 		<!-- 非当前用户是不允许编辑其他用户资料 -->
 		{eq name="$user.id" value="$Think.session.admin_id"}
 		<td><a href="{:url('user/userEdit',['id'=>$user.id])}">编辑</a></td>
-		<td><a href="{:url('user/userDel',['id'=>$user.id])}">删除</a></td>
 		{/eq}
-		<!-- {neq name="$user.id" value="$Think.session.admin_id"} -->
-		<!-- {/neq} -->
+		{neq name="$user.id" value="$Think.session.admin_id"}
+		<td><a href="#" onclick="dele();return false">删除</a></td>
+		{/neq}
 	</tr>
 	{/volist}
 </table>
+
+<script>
+	function dele(){
+		if(confirm('您是确定要删除吗？') == true){
+			window.location.href = "{:url('user/doDelete',['id'=>$user.id])}";
+		}
+	}
+</script>

@@ -25,9 +25,9 @@ class User extends Base
 			Session::set('admin_id',$result['id']);
 			Session::set('admin_name',$result['name']);
 			Session::set('admin_role',$result['role']);
-			$this->success('登录成功','admin/index/index');
+			return $this->success('登录成功','admin/index/index');
 		}else{
-			$this->error('登录失败');
+			return $this->error('登录失败');
 		}
 	}
 
@@ -88,7 +88,21 @@ class User extends Base
 		if(UserModel::where('id',$id)->data($data)->update()){
 			return $this->success('更新成功','userList');
 		}else{
-			$this->error('没有更新或者更新失败');
+			return $this->error('没有更新或者更新失败');
+		}
+	}
+
+	/**
+	 * 删除用户操作
+	 */
+	public function doDelete(){
+		// 获取要删除的主键id
+		$id = Request::param('id');
+		// 执行删除操作
+		if(UserModel::where('id',$id)->data('status','1')->update()){
+			return $this->success('删除成功','userList');
+		}else{
+			return $this->error('删除失败');
 		}
 	}
 
@@ -97,6 +111,6 @@ class User extends Base
 		// 清楚session
 		Session::clear();
 		// 退出登录并跳转到登录页面
-		$this->success('退出成功','admin/user/login');
+		return $this->success('退出成功','admin/user/login');
 	}
 }
