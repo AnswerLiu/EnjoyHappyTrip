@@ -78,10 +78,14 @@ class User extends Base
 	public function doEdit(){
 		// 获取用户提交信息
 		$data = Request::param();
-		// 获取主键
+		// 取出更新主键
 		$id = $data['id'];
 		// 用户密码加密再保存回去
-		$data['passwd'] = md5($data['passwd']);
+		if($data['passwd'] == $this->passwd){
+			unset($data['passwd']);
+		}else{
+			$data['passwd'] = md5($data['passwd']);
+		}
 		// 删除主键id
 		unset($data['id']);
 		// 执行更新操作
@@ -99,7 +103,7 @@ class User extends Base
 		// 获取要删除的主键id
 		$id = Request::param('id');
 		// 执行删除操作
-		if(UserModel::where('id',$id)->data('status','1')->update()){
+		if(UserModel::where('id',$id)->data('status','0')->update()){
 			return $this->success('删除成功','userList');
 		}else{
 			return $this->error('删除失败');

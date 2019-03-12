@@ -1,0 +1,34 @@
+{layout name="public:layout" /}
+<h4 class="text-center text-danger">编辑分类信息</h4>
+<form class="form-horizontal" method="post" action="{:url('cate/doEdit')}">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">栏目名称:</label>
+    <div class="col-sm-10">
+      <input type="text" name="name" class="form-control" id="inputEmail3" value="{$cateInfo.name}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">分类排序:</label>
+    <div class="col-sm-10">
+      <input type="number" name="sort" class="form-control" id="inputPassword3" value="{$cateInfo.sort}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">状态:</label>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <input type="radio" name="status" value="1" {eq name="$cateInfo.status" value="1" } checked {/eq}> 显示
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="status" value="0" {eq name="$cateInfo.status" value="0" } checked {/eq}> 隐藏
+      </label>
+    </div>
+  </div>
+  <!-- 隐藏id -->
+  <input type="hidden" name="id" value="{$cateInfo.id}">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default btn-info">保存</button>
+    </div>
+  </div>
+</form>
