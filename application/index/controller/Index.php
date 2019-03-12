@@ -10,4 +10,5 @@ class Index extends Base
         return '这是一个错误的页面';
     }
 
+
 }

@@ -16,6 +16,7 @@ class Base extends Controller
 	protected function initialize(){
 		// 检测网站是否关闭
 		$this->is_open();
+
 	}
 
 	// 检测站点是否关闭
@@ -31,6 +32,17 @@ class Base extends Controller
 </body>
 INFO;
 			exit($info);
+		}
+	}
+
+	/*检测注册是否关闭*/
+	public function is_reg(){
+		// 获取当前站点状态
+		$isReg = Site::where('status',1)->value('is_reg');
+
+		// 如果网站已经关闭，跳转到首页，不允许注册
+		if($isReg == 0){
+			$this->error('注册通道关闭，请关注网站通知','index/index');
 		}
 	}
 }
